@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Game</title>
+    <style>
+        *{
+            padding:0px;
+            margin:0px;
+        }
+        h1{
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ; 
+            margin: 30px;
+        }
+        #input{
+            margin:20px;
+            
+        }
+        #submit{
+            border: none;
+            padding: 7px;
+            border-radius: 5px;
+            background-color: #ff8823;
+            color: aliceblue;
+            font-weight: 700;
+        }
+        p{
+            position: absolute;
+            left:100px;
+        }
+        #uservalue{
+            position: absolute;
+            left: 80%;
+            top: 5%;
+        }
+        #nameSubmit{
+            border: none;
+            padding: 7px;
+            border-radius: 5px;
+            background-color: #23ccff;
+            color: aliceblue;
+            font-weight: 700;
+        }
+        h2{
+            font-size: 20px;
+            font-family: cursive;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="name">Enter your name <input type="text" id="username" > <input type="submit" id="nameSubmit"></h1>
+
+    <h1>Enter any Number</h1>
+    <input type="text" id="input">
+    <input type="submit" id="submit">
+
+    <script>
+        const name = document.getElementById("name")
+        if (localStorage.getItem("name")) {
+            name.remove()
+            const element = document.createElement("h2")
+            
+            element.setAttribute("id" , "uservalue")
+            
+            element.textContent= `Hello  ${localStorage.getItem("name")} 😎`
+            document.body.append(element)
+            
+        }else{
+        const userName = document.getElementById("username")
+        const userNameSubmit = document.getElementById("nameSubmit")
+        
+
+        userNameSubmit.addEventListener("click",()=>{
+            localStorage.setItem("name",userName.value)
+            name.remove()
+            const element = document.createElement("h2")
+            element.setAttribute("id" , "uservalue")
+            element.textContent= `Hello ${localStorage.getItem("name")} 😎`
+            document.body.append(element)
+        })}
+        const user = document.getElementById("input") ; 
+        const element = document.createElement("p")
+        const submit = document.getElementById("submit")
+      
+        function emoji (data){
+
+         const emojiData = Math.floor(128000+ Math.random()*500+data)
+
+         return emojiData;
+        }
+       
+        submit.addEventListener("click",()=>{
+
+            const valueConvertion = Number(user.value)
+            
+            element.style.fontSize= `70px`
+            const valueEmoji = emoji(valueConvertion)
+
+            if (!valueEmoji) {
+               
+                 alert(`enter a valid number`)
+                 return location.reload();
+            }
+            element.style.position="absolute"
+            element.innerHTML= `&#${valueEmoji}`
+        
+            document.body.append(element);
+            
+        })
+        
+    
+
+    </script>
+</body>
+</html>
